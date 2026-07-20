@@ -29,7 +29,12 @@ jobs:
       - name: Install dependencies
         run: pip install requests==2.31.0
 
-      - name: Run check
+      - name: Discover new videos
+        env:
+          WECOM_WEBHOOK: ${{ secrets.WECOM_WEBHOOK }}
+        run: python discover.py
+
+      - name: Check view counts
         env:
           WECOM_WEBHOOK: ${{ secrets.WECOM_WEBHOOK }}
         run: python check.py
@@ -38,6 +43,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add watched.json
-          git diff --staged --quiet || git commit -m "update: check views 2026-07-20T19:04:09Z"
+          git add watched.json discovered.json
+          git diff --staged --quiet || git commit -m "update: auto check"
           git push
