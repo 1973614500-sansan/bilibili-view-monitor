@@ -65,7 +65,7 @@ def main():
     if not os.path.exists("watched.json"):
         print("No watched.json found.")
         return
-    with open("watched.json", "r", encoding="utf-8") as f:
+    with open("watched.json", "r", encoding="utf-8-sig") as f:
         data = json.load(f)
     videos = data.get("videos", [])
     threshold = data.get("threshold", THRESHOLD)
@@ -97,7 +97,7 @@ def main():
         send_wecom_alert(r, threshold)
         time.sleep(1)
     data["videos"] = updated_videos
-    with open("watched.json", "w", encoding="utf-8") as f:
+    with open("watched.json", "w", encoding="utf-8-sig") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
     print()
     print(f"Done. Reached: {len(reached)}, Still monitoring: {len(updated_videos)}")

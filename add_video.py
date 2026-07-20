@@ -42,7 +42,7 @@ def main():
         title = info["title"]
         view = info["view"]
         send_wecom(f"\u8be5\u89c6\u9891\u64ad\u653e\u91cf\u5df2\u8fbe {view:,}\uff0c\u5df2\u8d85\u8fc78w\n\u6807\u9898: {title}"); return
-    with open("watched.json", "r", encoding="utf-8") as f:
+    with open("watched.json", "r", encoding="utf-8-sig") as f:
         data = json.load(f)
     if any(v["bvid"].upper() == BVID.upper() for v in data["videos"]):
         title = info["title"]
@@ -55,7 +55,7 @@ def main():
         "current_view": info["view"],
         "last_check": datetime.now(BJT).isoformat()
     })
-    with open("watched.json", "w", encoding="utf-8") as f:
+    with open("watched.json", "w", encoding="utf-8-sig") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
     title = info["title"]
     bvid = info["bvid"]
