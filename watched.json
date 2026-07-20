@@ -1,1 +1,14 @@
-{"videos":[],"threshold":80000,"notified":[]}
+﻿{
+  "videos": [
+    {
+      "bvid": "BV1GJ4m1e7Rp",
+      "title": "说好的，我们都是姐妹，大不了不让你上桌了嘛",
+      "added_by": "hujianing",
+      "added_at": "2026-07-20T19:37:34.453275+08:00",
+      "current_view": 343,
+      "last_check": "2026-07-20T19:37:34.453290+08:00"
+    }
+  ],
+  "threshold": 80000,
+  "notified": []
+}
