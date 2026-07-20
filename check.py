@@ -33,6 +33,7 @@ def send_wecom_alert(video_info, threshold):
         print("  [ERROR] WECOM_WEBHOOK not set")
         return False
     now = datetime.now(BJT).strftime("%Y-%m-%d %H:%M")
+    added_by = video_info.get('added_by', '未知')
     view_str = f"{video_info['view']:,}"
     thr_str = f"{threshold:,}"
     msg = (
@@ -41,7 +42,7 @@ def send_wecom_alert(video_info, threshold):
         f"\U0001f517 BV\u53f7\uff1a{video_info['bvid']}\n"
         f"\U0001f440 \u5f53\u524d\u64ad\u653e\u91cf\uff1a{view_str}\n"
         f"\U0001f3af \u8fbe\u6807\u9608\u503c\uff1a{thr_str}\n"
-        f"\U0001f464 \u6dfb\u52a0\u4eba\uff1a{video_info.get('added_by', '\u672a\u77e5')}\n"
+        f"\U0001f464 \u6dfb\u52a0\u4eba\uff1a{added_by}\n"
         f"\u23f0 \u8fbe\u6807\u65f6\u95f4\uff1a{now}"
     )
     try:
