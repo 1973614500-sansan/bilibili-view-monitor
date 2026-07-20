@@ -1,0 +1,11 @@
+name = "bilibili-view-monitor"
+main = "worker/index.js"
+compatibility_date = "2024-01-01"
+
+[vars]
+# These will be overridden by secrets
+# WECOM_TOKEN = ""
+# WECOM_AES_KEY = ""
+# GITHUB_TOKEN = ""
+# GITHUB_REPO = ""
+# WECOM_WEBHOOK = ""

@@ -1,0 +1,43 @@
+name: Check Video Views
+
+on:
+  schedule:
+    - cron: '0 */2 * * *'
+  workflow_dispatch:
+  repository_dispatch:
+    types: [check-trigger]
+
+concurrency:
+  group: view-monitor
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests==2.31.0
+
+      - name: Run check
+        env:
+          WECOM_WEBHOOK: ${{ secrets.WECOM_WEBHOOK }}
+        run: python check.py
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add watched.json
+          git diff --staged --quiet || git commit -m "update: check views 2026-07-20T19:04:09Z"
+          git push
