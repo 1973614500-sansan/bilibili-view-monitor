@@ -3,3 +3,4 @@ __pycache__/
 _*.py
 .env
 node_modules/
+.wrangler/

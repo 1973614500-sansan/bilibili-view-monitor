@@ -1,0 +1,38 @@
+name: Add Video
+
+on:
+  repository_dispatch:
+    types: [add-video]
+
+permissions:
+  contents: write
+
+jobs:
+  add:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests==2.31.0
+
+      - name: Add video
+        env:
+          WECOM_WEBHOOK: ${{ secrets.WECOM_WEBHOOK }}
+          BVID: ${{ github.event.client_payload.bvid }}
+          ADDED_BY: ${{ github.event.client_payload.added_by }}
+        run: python add_video.py
+
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add watched.json
+          git diff --staged --quiet || git commit -m "add: ${{ github.event.client_payload.bvid }}"
+          git push
